@@ -2,6 +2,7 @@ const form = document.querySelector('[data-pet="form"]');
 const resultIdd = document.querySelector('[data-pet="resultado"]');
 const btnCalc = document.querySelector('[data-pet="btn-calc"]');
 const resultFinal = document.querySelector('[data-pet="resultado"]');
+const kiloInput = document.querySelectorAll('.kilo');
 
 
 
@@ -16,8 +17,15 @@ class Pet {
             pegandoDadosDog(idade, peso);
 
         } else if (especie === 'GATO') {
-
+            pegandoDadosCat(idade);
         }
+    }
+    verificarOpPets(especie) {
+        // const optionsPet = ['CACHORRO', 'GATOS'];
+            if (especie !== 'GATO' || especie !== 'CACHORRO') {
+                console.log('Espécie ainda não disponível para busca')
+            }
+        
     }
 }
 
@@ -30,6 +38,7 @@ function handleClick() {
     inputIddPet = numeroParaExtenso(inputIddPet);
     const MyPet = new Pet(inputPet, inputIddPet, inputPesoPet);
     MyPet.buscarIdade(inputPet, inputIddPet, inputPesoPet);
+    MyPet.verificarOpPets(inputPet);
     // console.log(MyPet);
     // resultFinal.innerText = `É um ${inputPet} e tem ${inputIddPet} e ${inputPesoPet}`
 }
@@ -42,18 +51,27 @@ function pegandoDadosDog(idade, peso) {
             const jsonFile = objPets;
             if(peso < 10) {
                 pesoPetHPeq = jsonFile.dezmenos[idade]
-                resultIdd.innerText = `Em idade de humanos seu Cachorro tem ${pesoPetHPeq} anos.`
+                resultIdd.innerText = `Em idade de humanos seu Cachorro tem aproximadamente ${pesoPetHPeq} anos.`
             } else if(peso >= 10 && peso <= 22) {
                 pesoPetHMed = jsonFile.dezevintedois[idade];
-                resultIdd.innerText = `Em idade de humanos seu Cachorro tem ${pesoPetHMed} anos.`
+                resultIdd.innerText = `Em idade de humanos seu Cachorro tem aproximadamente ${pesoPetHMed} anos.`
             } else if (peso > 22) {
                 pesoPetHG = jsonFile.vintedoismais[idade];
-                resultIdd.innerText = `Em idade de humanos seu Cachorro tem ${pesoPetHG} anos.`
+                resultIdd.innerText = `Em idade de humanos seu Cachorro tem aproximadamente ${pesoPetHG} anos.`
             }
-            // console.log(idadeH);
-            // resultIdd.innerText = `Em idade de humanos seu Cachorro tem ${idadeH} anos.`
         })
     });
+}
+
+function pegandoDadosCat(idade) {
+    fetch('idades-pets.json').then( resultResponse => {
+        const jsonPets = resultResponse.json();
+        jsonPets.then(resultJson => {
+            // console.log(resultJson.gatos[idade]);
+            const idadeCatH = resultJson.gatos[idade];
+            resultFinal.innerText = `O seu gato tem em idade humana aproximadamente ${idadeCatH} anos`;
+        }) 
+    })
 }
 
 function numeroParaExtenso(numero) {
@@ -66,6 +84,23 @@ function numeroParaExtenso(numero) {
         return menorQVinte[numero - 10]
     }
     console.log(numero)
+}
+
+form.addEventListener('change', verificaGato);
+
+function verificaGato() {
+    const inputCat = form[0].value.toUpperCase();
+    if(inputCat === 'GATO') {
+        kiloInput.forEach(kilo => {
+            kilo.classList.add('inativo');
+        });
+        const iddInput = document.querySelector('.idd');
+        iddInput.setAttribute('max', 14);
+    } else {
+        kiloInput.forEach(kilo => {
+            kilo.classList.remove('inativo')
+        })
+    }
 }
 
 

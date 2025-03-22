@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logevidade de animais</title>
+
+    <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
     <header>Logevidade do seu pet</header>
@@ -12,9 +14,9 @@
             <label for="seu-pet">Seu pet</label>
             <input type="text" id="seu-pet" name="seu-pet">
             <label for="idade">Idade</label>
-            <input type="number" name="idade" id="idade" min="1" max="15">
-            <label for="peso">Peso</label>
-            <input type="number" name="peso" id="peso" placeholder="Em kg" min="1">
+            <input type="number" name="idade" id="idade" min="1" max="15" class="idd">
+            <label for="peso" class="kilo">Peso</label>
+            <input type="number" name="peso" id="peso" placeholder="Em kg" min="1" class="kilo">
         </form>
         <button data-pet="btn-calc">CALCULAR</button>
         <p data-pet="resultado"></p>
