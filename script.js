@@ -20,15 +20,33 @@ class Pet {
             pegandoDadosCat(idade);
         }
     }
+
+    initVerificarOpPets(especie) {
+        form.addEventListener('change', () => {
+            verificarOpPets(especie);
+        });
+    }
+
     verificarOpPets(especie) {
-        // const optionsPet = ['CACHORRO', 'GATOS'];
-            if (especie !== 'GATO' || especie !== 'CACHORRO') {
-                console.log('Espécie ainda não disponível para busca')
+         const optionsPet = ['CACHORRO', 'GATO'];
+         const alerta = document.querySelector('.alerta');
+            if (!optionsPet.includes(especie)) {
+                alerta.classList.add('ativo');
+                alerta.innerText = 'Espécie ainda não disponível para busca'
+                console.log('Espécie ainda não disponível para busca');
+            } else if(alerta){
+                alerta.classList.remove('ativo')
+
             }
         
     }
 }
+//Fim da CLASS
 
+
+
+
+//Onde eu faço o instanciamento da class
 btnCalc.addEventListener('click',  handleClick);
 
 function handleClick() {
@@ -63,6 +81,7 @@ function pegandoDadosDog(idade, peso) {
     });
 }
 
+
 function pegandoDadosCat(idade) {
     fetch('idades-pets.json').then( resultResponse => {
         const jsonPets = resultResponse.json();
@@ -88,6 +107,7 @@ function numeroParaExtenso(numero) {
 
 form.addEventListener('change', verificaGato);
 
+//Modificando  o forms caso seja gato
 function verificaGato() {
     const inputCat = form[0].value.toUpperCase();
     if(inputCat === 'GATO') {

@@ -1,3 +1,11 @@
 .kilo.inativo {
     display: none;
 }
+
+.alerta {
+    display: none;
+}
+
+.alerta.ativo {
+    display: block;
+}
