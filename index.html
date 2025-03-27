@@ -8,19 +8,28 @@
     <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
-    <header>Logevidade do seu pet</header>
+    <header>
+        <h1>Logevidade do seu pet</h1>
+    </header>
     <main>
         <form data-pet="form">
-            <label for="seu-pet">Seu pet</label>
-            <input type="text" id="seu-pet" name="seu-pet">
-            <p class="alerta"></p>
-            <label for="idade">Idade</label>
-            <input type="number" name="idade" id="idade" min="1" max="15" class="idd">
-            <label for="peso" class="kilo">Peso</label>
-            <input type="number" name="peso" id="peso" placeholder="Em kg" min="1" class="kilo">
+            <div>
+                <label for="seu-pet">Seu pet</label>
+                <input type="text" id="seu-pet" name="seu-pet">
+                <p class="alerta"></p>
+            </div>
+            <div>
+                <label for="idade">Idade</label>
+                <input type="number" name="idade" id="idade" min="1" max="15" class="idd">
+            </div>
+            <div>
+                <label for="peso" class="kilo">Peso</label>
+                <input type="number" name="peso" id="peso" placeholder="Em kg" min="1" class="kilo">
+            </div>
         </form>
         <button data-pet="btn-calc">CALCULAR</button>
         <p data-pet="resultado"></p>
+        
     </main>
 
 

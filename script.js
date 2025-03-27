@@ -11,12 +11,15 @@ class Pet {
         this.especie = especie;
         this.idade = idade;
         this.peso = peso;
+        this.cannisArray = ['CACHORRO', 'CÃO', 'CAO', 'CADELA', 'CACHORRA'];
+        this.felinosArray = ['GATO', 'GATA'];
     }
     buscarIdade(especie, idade, peso) {
-        if (especie === 'CACHORRO') {
+        // const canissArray = ['CACHORRO', 'CÃO', 'CAO', 'CADELA', 'CACHORRA']
+        if (this.cannisArray.includes(especie)) {
             pegandoDadosDog(idade, peso);
 
-        } else if (especie === 'GATO') {
+        } else if (this.felinosArray.includes(especie)) {
             pegandoDadosCat(idade);
         }
     }
@@ -28,40 +31,44 @@ class Pet {
     }
 
     verificarOpPets(especie) {
-         const optionsPet = ['CACHORRO', 'GATO'];
+         const optionsPet = this.cannisArray.push(this.felinosArray);
          const alerta = document.querySelector('.alerta');
-            if (!optionsPet.includes(especie)) {
-                alerta.classList.add('ativo');
-                alerta.innerText = 'Espécie ainda não disponível para busca'
-                console.log('Espécie ainda não disponível para busca');
-            } else if(alerta){
-                alerta.classList.remove('ativo')
+        if (!optionsPet.includes(especie)) {
+            alerta.classList.add('ativo');
+            alerta.innerText = 'Espécie ainda não disponível para busca'
+            resultIdd.innerText = '';
+            // console.log('Espécie ainda não disponível para busca');
+        } else if(alerta){
+            alerta.classList.remove('ativo')
 
-            }
-        
+        }
     }
+
+    // verificaGeralForm(especie, idade, peso) {
+        
+    // }
 }
 //Fim da CLASS
-
-
 
 
 //Onde eu faço o instanciamento da class
 btnCalc.addEventListener('click',  handleClick);
 
 function handleClick() {
-    const inputPet = form[0].value.toUpperCase();
+    const inputPet = form[0].value.toUpperCase().trim();
     let inputIddPet = +form[1].value;
     const inputPesoPet = +form[2].value;
     inputIddPet = numeroParaExtenso(inputIddPet);
     const MyPet = new Pet(inputPet, inputIddPet, inputPesoPet);
     MyPet.buscarIdade(inputPet, inputIddPet, inputPesoPet);
     MyPet.verificarOpPets(inputPet);
+    // MyPet.verificaGeralForm(inputPet, inputIddPet, inputPesoPet);
     // console.log(MyPet);
     // resultFinal.innerText = `É um ${inputPet} e tem ${inputIddPet} e ${inputPesoPet}`
 }
 
 
+//Se for canino vai chamar essa função, onde acessa o arquivo json e imprime o resultado na tela
 function pegandoDadosDog(idade, peso) {
     fetch('idades-pets.json').then(result => {
         const jsonPets = result.json(); //promise, result: object
@@ -81,9 +88,9 @@ function pegandoDadosDog(idade, peso) {
     });
 }
 
-
+//Se for felino vai chamar essa função, onde acessa o arquivo json e imprime o resultado na tela
 function pegandoDadosCat(idade) {
-    fetch('idades-pets.json').then( resultResponse => {
+    fetch('idades-pets.json').then(resultResponse => {
         const jsonPets = resultResponse.json();
         jsonPets.then(resultJson => {
             // console.log(resultJson.gatos[idade]);
@@ -93,6 +100,7 @@ function pegandoDadosCat(idade) {
     })
 }
 
+//Função que passa a idade para extenso, pois essa é uma propriedade no arquivo json para retornar o idade humana dependendo do kg.
 function numeroParaExtenso(numero) {
     const unidades = ["", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove"];
     const menorQVinte = ["dez", "onze", "doze", "treze", "quatorze", "quinze", "dezesseis", "dezessete", "dezoito", "dezenove"];
@@ -105,12 +113,14 @@ function numeroParaExtenso(numero) {
     console.log(numero)
 }
 
+
+
 form.addEventListener('change', verificaGato);
 
 //Modificando  o forms caso seja gato
 function verificaGato() {
     const inputCat = form[0].value.toUpperCase();
-    if(inputCat === 'GATO') {
+    if(inputCat === 'GATO' || inputCat === 'GATA') {
         kiloInput.forEach(kilo => {
             kilo.classList.add('inativo');
         });

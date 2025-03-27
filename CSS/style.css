@@ -1,3 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: rgb(255, 252, 66);
+}
+
+header {
+    background: gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    background: blue;
+    display: flex;
+    flex-direction: column;
+}
+
+form {
+    background: rgb(255, 0, 0);
+    display: grid;
+    grid-template-rows: repeat(3, 100px);
+    row-gap: 3px;
+    max-width: 600px;
+    height: 500px;
+}
+
+form > div {
+    background: pink;
+    display: grid;
+    grid-template-rows: 50px 1fr;
+}
+
+form > div > label {
+    background-color: greenyellow;
+    font-size: 1.3rem;
+    max-width: 100px;
+    align-self: center;
+}
+
+form > div > input {
+    max-width: 300px;
+    height: 30px;
+    align-self: start;
+
+}
+
+
 .kilo.inativo {
     display: none;
 }
